@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--标题-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="成  绩"
+        android:textSize="28sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        />
+
+    <!--正确-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="正确："
+        android:textSize="26sp"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="50dp"
+        />
+    <TextView
+        android:id="@+id/right_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="190dp"
+        />
+
+    <!--错误-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="错误："
+        android:textSize="26sp"
+        android:layout_marginTop="170dp"
+        android:layout_marginLeft="50dp"
+        />
+    <TextView
+        android:id="@+id/wrong_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:layout_marginTop="170dp"
+        android:layout_marginLeft="190dp"
+        />
+
+    <!--未做-->
+    <TextView
+        android:text="未做："
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:layout_marginTop="220dp"
+        android:layout_marginLeft="50dp"
+        />
+    <TextView
+        android:id="@+id/not_done_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:layout_marginTop="220dp"
+        android:layout_marginLeft="190dp"
+        />
+
+    <!--正确率-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="正确率："
+        android:textSize="26sp"
+        android:layout_marginTop="270dp"
+        android:layout_marginLeft="50dp"
+        />
+    <TextView
+        android:id="@+id/percent_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:layout_marginTop="270dp"
+        android:layout_marginLeft="190dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="%"
+        android:textSize="26sp"
+        android:layout_marginTop="270dp"
+        android:layout_marginLeft="230dp"
+        />
+
+
+    <!--评价-->
+    <TextView
+        android:id="@+id/judge1"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="370dp"
+        android:text="恭喜您，达到了百分百的正确率，非常优秀！"
+        android:visibility="invisible"
+        android:textSize="22dp"
+        android:layout_marginLeft="20dp"/>
+    <TextView
+        android:id="@+id/judge2"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="370dp"
+        android:text="恭喜您，达到了百分之八十以上的正确率，比较优秀！"
+        android:visibility="invisible"
+        android:textSize="22dp"
+        android:layout_marginLeft="20dp"/>
+    <TextView
+        android:id="@+id/judge3"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="370dp"
+        android:text="恭喜您，达到了百分之六十以上的正确率，优秀！"
+        android:visibility="invisible"
+        android:textSize="22dp"
+        android:layout_marginLeft="20dp"/>
+    <TextView
+        android:id="@+id/judge4"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="370dp"
+        android:text="很遗憾，您没有达到百分之六十以上的正确率，请再接再厉！"
+        android:visibility="invisible"
+        android:textSize="22dp"
+        android:layout_marginLeft="20dp"/>
+
+    <!--回到主页的按钮-->
+    <Button
+        android:id="@+id/back_to_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp"
+        android:layout_centerHorizontal="true"
+        android:text="返  回"/>
+</RelativeLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--    知识测试-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="知识测试"
+        android:layout_marginTop="10dp"
+        android:textSize="26sp" />
+
+    <!--    随机自测-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="随机自测："
+        android:textSize="26sp" />
+    <Button
+        android:id="@+id/choice_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:text="选择题自测"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp" />
+    <Button
+        android:id="@+id/judge_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:text="判断题自测"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp" />
+
+    <!--    组卷公测-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="组卷公测："
+        android:layout_marginTop="210dp"
+        android:textSize="26sp" />
+    <Button
+        android:id="@+id/group_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="组卷公测"
+        android:layout_marginTop="250dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp" />
+
+    <!--    竞赛问答-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="竞赛问答："
+        android:layout_marginTop="310dp"
+        android:textSize="26sp" />
+    <Button
+        android:id="@+id/competition_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="竞赛问答"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="350dp"
+        android:textSize="20sp" />
+
+
+</RelativeLayout>

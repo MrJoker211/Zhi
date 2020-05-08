@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--标题-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/text_view_first"
+        android:textSize="24sp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="250dp"
+        android:text="账号："
+        android:textSize="20sp" />
+    <!--账号输入框-->
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="240dp"
+        android:hint="请输入账号"
+        android:inputType="number"
+        />
+        <!--tools:ignore="LabelFor"-->
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="310dp"
+        android:text="密码："
+        android:textSize="20sp" />
+    <!--密码-->
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="300dp"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        tools:ignore="LabelFor" />
+
+    <!--登录按钮-->
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="420dp"
+        android:text="@string/button_login"
+        android:textSize="18sp" />
+
+    <!--注册按钮-->
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="220dp"
+        android:layout_marginTop="420dp"
+        android:text="@string/button_registration"
+        android:textSize="18sp" />
+
+
+</RelativeLayout>

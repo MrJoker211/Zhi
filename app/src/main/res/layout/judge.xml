@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--题号-->
+    <TextView
+        android:id="@+id/choice_title_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="判断题练习"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textSize="28sp"/>
+
+    <!--标题-->
+    <TextView
+        android:id="@+id/choice_title"
+        android:layout_width="390dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="60dp"/>
+
+    <!--选项-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="60dp"
+        android:text="对"
+        android:textSize="20sp"/>
+    <CheckBox
+        android:id="@+id/right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="300dp"
+        android:text="错"
+        android:textSize="20sp"/>
+    <CheckBox
+        android:id="@+id/wrong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="270dp"/>
+
+    <!--答案-->
+    <TextView
+        android:id="@+id/answer_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="答案:"
+        android:visibility="invisible"
+        android:textSize="20sp"
+        android:layout_marginTop="430dp"
+        android:layout_marginLeft="40dp"/>
+    <TextView
+        android:id="@+id/answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="对"
+        android:visibility="invisible"
+        android:textSize="20sp"
+        android:layout_marginTop="430dp"
+        android:layout_marginLeft="90dp"/>
+
+    <Button
+        android:id="@+id/sure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="480dp"
+        android:layout_centerHorizontal="true"
+        android:text="确定"/>
+
+    <Button
+        android:id="@+id/last_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="540dp"
+        android:layout_marginLeft="40dp"
+        android:text="上一题"/>
+    <Button
+        android:id="@+id/next_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="540dp"
+        android:layout_marginLeft="280dp"
+        android:text="下一题"/>
+
+
+</RelativeLayout>
