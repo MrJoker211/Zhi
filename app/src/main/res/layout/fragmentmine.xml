@@ -55,7 +55,24 @@
         android:textSize="15sp"
         android:text="666666"
         android:layout_marginTop="120dp"
-        android:layout_marginLeft="200dp"/>
+        android:layout_marginLeft="190dp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="群组号："
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="260dp"/>
+    <TextView
+        android:id="@+id/group_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="777777"
+        android:layout_marginTop="120dp"
+        android:layout_marginLeft="320dp"/>
 
 
 

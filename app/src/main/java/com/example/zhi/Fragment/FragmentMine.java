@@ -26,7 +26,7 @@ import cn.bmob.v3.listener.QueryListener;
 public class FragmentMine extends Fragment {
 
 
-    private TextView username,nickname;
+    private TextView username,nickname,groupNumber;
     private Button loginOut;
 
     @Nullable
@@ -72,6 +72,7 @@ public class FragmentMine extends Fragment {
                 if(e == null){
                     username.setText(user.getUsername());
                     nickname.setText(user.getNickname());
+                    groupNumber.setText(user.getGroupNumber());
                 }else {
                     Toast.makeText(getActivity(),"加载失败",Toast.LENGTH_SHORT).show();
                 }
@@ -82,6 +83,11 @@ public class FragmentMine extends Fragment {
     private void initView() {
         username = getActivity().findViewById(R.id.username);
         nickname = getActivity().findViewById(R.id.nickname);
+        groupNumber = getActivity().findViewById(R.id.group_number);
+
         loginOut = getActivity().findViewById(R.id.login_out);
+
+
+
     }
 }

@@ -55,7 +55,30 @@
         android:layout_marginLeft="80dp"
         android:layout_marginTop="250dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="310dp"
+        android:layout_marginLeft="20dp"
+        android:text="是否为党支部委员："/>
 
+    <CheckBox
+        android:id="@+id/yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="340dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
+        android:text="是"/>
+    <CheckBox
+        android:id="@+id/no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="340dp"
+        android:layout_marginLeft="220dp"
+        android:textSize="20sp"
+        android:text="否"/>
 
     <Button
         android:id="@+id/register"
@@ -64,7 +87,7 @@
         android:layout_centerHorizontal="true"
         android:text="注册"
         android:textSize="24dp"
-        android:layout_marginTop="320dp"/>
+        android:layout_marginTop="420dp"/>
 
 
 
