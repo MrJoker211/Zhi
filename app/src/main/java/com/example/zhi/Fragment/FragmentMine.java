@@ -1,6 +1,6 @@
 package com.example.zhi.Fragment;
 
-import android.annotation.SuppressLint;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,17 +17,30 @@ import androidx.fragment.app.Fragment;
 import com.example.zhi.Bean.User;
 import com.example.zhi.R;
 import com.example.zhi.activity.Login;
+import com.example.zhi.groupTest.ExamRecord;
+import com.example.zhi.groupTest.JoinExam;
+import com.example.zhi.groupTest.JoinGroup;
+import com.example.zhi.groupTest.ManageGroup;
+import com.example.zhi.groupTest.ReleaseExam;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
 
-public class FragmentMine extends Fragment {
+public class FragmentMine extends Fragment implements View.OnClickListener {
 
 
-    private TextView username,nickname,groupNumber;
+    private TextView username;
+    private TextView nickname;
+    private TextView groupNumber;
+
     private Button loginOut;
+    private Button manageGroup;
+    private Button releaseExam;
+    private Button examRecord;
+    private Button joinGroup;
+    private Button joinExam;
 
     @Nullable
     @Override
@@ -38,25 +51,23 @@ public class FragmentMine extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //逻辑处理
-
-
+        //初始化控件
         initView();
         //加载我的信息
         getMyinfo();
 
-        //退出登录
-        loginOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //并不是真正意义的退出，让用户信息不再记录到App中
-                //然后用finish结束活动  才算退出
-                BmobUser.logOut();
-                startActivity(new Intent(getActivity(), Login.class));
-                getActivity().finish();
-            }
-        });
+        //设置监听点击事件
+        setClick();
 
+    }
+
+    private void setClick() {
+        loginOut.setOnClickListener(this);
+        manageGroup.setOnClickListener(this);
+        releaseExam.setOnClickListener(this);
+        examRecord.setOnClickListener(this);
+        joinGroup.setOnClickListener(this);
+        joinExam.setOnClickListener(this);
     }
 
     private void getMyinfo() {
@@ -86,8 +97,38 @@ public class FragmentMine extends Fragment {
         groupNumber = getActivity().findViewById(R.id.group_number);
 
         loginOut = getActivity().findViewById(R.id.login_out);
+        manageGroup = getActivity().findViewById(R.id.manage_group);
+        releaseExam = getActivity().findViewById(R.id.release_exam);
+        examRecord = getActivity().findViewById(R.id.exam_record);
+        joinGroup = getActivity().findViewById(R.id.join_group);
+        joinExam = getActivity().findViewById(R.id.join_exam);
+    }
 
-
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.login_out:
+                //并不是真正意义的退出，让用户信息不再记录到App中
+                //然后用finish结束活动  才算退出
+                BmobUser.logOut();
+                startActivity(new Intent(getActivity(), Login.class));
+                getActivity().finish();
+                break;
+            case R.id.manage_group:
+                startActivity(new Intent(getActivity(), ManageGroup.class));
+                break;
+            case R.id.release_exam:
+                startActivity(new Intent(getActivity(), ReleaseExam.class));
+                break;
+            case R.id.exam_record:
+                startActivity(new Intent(getActivity(), ExamRecord.class));
+                break;
+            case R.id.join_group:
+                startActivity(new Intent(getActivity(), JoinGroup.class));
+                break;
+            case R.id.join_exam:
+                startActivity(new Intent(getActivity(), JoinExam.class));
+                break;
+        }
     }
 }

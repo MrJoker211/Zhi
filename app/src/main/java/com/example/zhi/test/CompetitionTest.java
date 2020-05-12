@@ -174,8 +174,6 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
         sure.setOnClickListener(this);
         nextQuestion.setOnClickListener(this);
         finish.setOnClickListener(this);
-
-
     }
 
     //点击事件的处理

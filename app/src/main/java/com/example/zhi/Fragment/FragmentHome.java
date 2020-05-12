@@ -25,7 +25,7 @@ import cn.bmob.v3.BmobUser;
 
 //此处可以直接继承基类BaseFragment
 //
-public class FragmentHome extends Fragment {
+public class FragmentHome extends Fragment implements View.OnClickListener{
 
     private Button firstChapter;
     private Button secondChapter;
@@ -46,66 +46,23 @@ public class FragmentHome extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //逻辑处理
+        //控件初始化
         initView();
 
-        //按钮响应事件
-        onClick();
+        //设置点击事件
+        setClick();
 
     }
 
-    private void onClick() {
-        //跳转到第一章
-        firstChapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), FirstChapter.class));
-            }
-        });
-        //跳转到第二章
-        secondChapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), SecondChapter.class));
-            }
-        });
-        //跳转到第三章
-        thirdChapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ThirdChapter.class));
-            }
-        });
-        //跳转到第四章
-        fourthChapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), FourthChapter.class));
-            }
-        });
-        //跳转到第五章
-        fifChapter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), FifthChapter.class));
-            }
-        });
+    private void setClick() {
+        firstChapter.setOnClickListener(this);
+        secondChapter.setOnClickListener(this);
+        thirdChapter.setOnClickListener(this);
+        fourthChapter.setOnClickListener(this);
+        fifChapter.setOnClickListener(this);
 
-
-        //跳转到判断题练习
-        judgePractice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), Judge.class));
-            }
-        });
-        //跳转到选择题练习
-        choicePractice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), Choice.class));
-            }
-        });
+        judgePractice.setOnClickListener(this);
+        choicePractice.setOnClickListener(this);
     }
 
 
@@ -118,5 +75,33 @@ public class FragmentHome extends Fragment {
 
         judgePractice = getActivity().findViewById(R.id.judge_practice);
         choicePractice = getActivity().findViewById(R.id.choice_practice);
+    }
+
+    //点击事件的响应
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.first_chapter:
+                startActivity(new Intent(getActivity(), FirstChapter.class));
+                break;
+            case R.id.second_chapter:
+                startActivity(new Intent(getActivity(), SecondChapter.class));
+                break;
+            case R.id.third_chapter:
+                startActivity(new Intent(getActivity(), ThirdChapter.class));
+                break;
+            case R.id.fourth_chapter:
+                startActivity(new Intent(getActivity(), FourthChapter.class));
+                break;
+            case R.id.fifth_chapter:
+                startActivity(new Intent(getActivity(), FifthChapter.class));
+                break;
+            case R.id.judge_practice:
+                startActivity(new Intent(getActivity(), Judge.class));
+                break;
+            case R.id.choice_practice:
+                startActivity(new Intent(getActivity(), Choice.class));
+                break;
+        }
     }
 }

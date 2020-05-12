@@ -90,6 +90,7 @@
         android:layout_marginTop="190dp"
         android:layout_centerHorizontal="true"/>
     <Button
+        android:id="@+id/release_exam"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="发布试题"
@@ -97,6 +98,7 @@
         android:layout_marginTop="240dp"
         android:layout_centerHorizontal="true"/>
     <Button
+        android:id="@+id/exam_record"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="考试结果"
@@ -112,6 +114,7 @@
         android:layout_marginTop="350dp"
         android:layout_marginLeft="20dp"/>
     <Button
+        android:id="@+id/join_group"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="加入群组"
@@ -119,6 +122,7 @@
         android:layout_marginTop="370dp"
         android:layout_centerHorizontal="true"/>
     <Button
+        android:id="@+id/join_exam"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="参加考试"

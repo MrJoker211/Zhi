@@ -90,6 +90,24 @@
         <activity android:name=".test.ReportCard">
 
         </activity>
+
+        <!--个人中心中的的类-->
+        <activity android:name=".groupTest.ExamRecord">
+
+        </activity>
+        <activity android:name=".groupTest.JoinExam">
+
+        </activity>
+        <activity android:name=".groupTest.JoinGroup">
+
+        </activity>
+        <activity android:name=".groupTest.ManageGroup">
+
+        </activity>
+        <activity android:name=".groupTest.ReleaseExam">
+
+        </activity>
+
     </application>
 
 </manifest>
