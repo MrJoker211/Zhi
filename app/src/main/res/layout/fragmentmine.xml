@@ -75,7 +75,56 @@
         android:layout_marginLeft="320dp"/>
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="委员："
+        android:layout_marginTop="170dp"
+        android:layout_marginLeft="20dp"/>
+    <Button
+        android:id="@+id/manage_group"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="管理群组"
+        android:textSize="20sp"
+        android:layout_marginTop="190dp"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="发布试题"
+        android:textSize="20sp"
+        android:layout_marginTop="240dp"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="考试结果"
+        android:textSize="20sp"
+        android:layout_marginTop="290dp"
+        android:layout_centerHorizontal="true"/>
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="个人："
+        android:layout_marginTop="350dp"
+        android:layout_marginLeft="20dp"/>
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="加入群组"
+        android:textSize="20sp"
+        android:layout_marginTop="370dp"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="参加考试"
+        android:textSize="20sp"
+        android:layout_marginTop="420dp"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:id="@+id/login_out"

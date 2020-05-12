@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-
+        android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config"
 
         android:icon="@mipmap/photo"
@@ -24,12 +24,11 @@
         tools:targetApi="n"
         tools:ignore="ExtraText">
 
-        android:usesCleartextTraffic="true"
+
         <provider
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.example.zhi.BmobContentProvider"
-            android:exported="false">
-        </provider>
+            android:exported="false" />
 
         <activity android:name=".activity.Splash">
             <intent-filter>
