@@ -91,7 +91,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                 user.setNickname(nickname.getText().toString().trim());
 
                 user.setGroupNumber(mGroupNumber);
-
                 user.setIsCommittee(mIsCommittee);
                 user.setState(mState);
 
@@ -126,8 +125,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-
-    //生成指定length的随机字符串（A-Z，a-z，0-9）
+    //生成指定length的随机字符串（A-Z，a-z，0-9),用于生成默认的群组号
     public static String getRandomString(int length) {
         String str = "0123456789";
         Random random = new Random();

@@ -74,7 +74,6 @@ public class FragmentMine extends Fragment implements View.OnClickListener {
         //加载个人信息,通过父类的函数获取当前的对象
         BmobUser bmobUser = BmobUser.getCurrentUser(BmobUser.class);
         String Id = bmobUser.getObjectId();
-
         //通过封装的函数进行查询
         BmobQuery<User> bmobQuery = new BmobQuery<>();
         bmobQuery.getObject(Id, new QueryListener<User>() {
@@ -83,7 +82,10 @@ public class FragmentMine extends Fragment implements View.OnClickListener {
                 if(e == null){
                     username.setText(user.getUsername());
                     nickname.setText(user.getNickname());
-                    groupNumber.setText(user.getGroupNumber());
+                    //只有申请加入群组且被同意以后才有群组号
+                    if(user.getState().intValue() == 1){
+                        groupNumber.setText(user.getGroupNumber());
+                    }
                 }else {
                     Toast.makeText(getActivity(),"加载失败",Toast.LENGTH_SHORT).show();
                 }
