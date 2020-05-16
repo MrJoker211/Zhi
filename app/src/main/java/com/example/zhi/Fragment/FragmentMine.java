@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.zhi.Bean.User;
+import com.example.zhi.Bean.UserState;
 import com.example.zhi.R;
 import com.example.zhi.activity.Login;
 import com.example.zhi.groupTest.ExamRecord;
@@ -23,9 +24,12 @@ import com.example.zhi.groupTest.JoinGroup;
 import com.example.zhi.groupTest.ManageGroup;
 import com.example.zhi.groupTest.ReleaseExam;
 
+import java.util.List;
+
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
 
 public class FragmentMine extends Fragment implements View.OnClickListener {
@@ -74,20 +78,32 @@ public class FragmentMine extends Fragment implements View.OnClickListener {
         //加载个人信息,通过父类的函数获取当前的对象
         BmobUser bmobUser = BmobUser.getCurrentUser(BmobUser.class);
         String Id = bmobUser.getObjectId();
+
         //通过封装的函数进行查询
         BmobQuery<User> bmobQuery = new BmobQuery<>();
         bmobQuery.getObject(Id, new QueryListener<User>() {
             @Override
             public void done(User user, BmobException e) {
                 if(e == null){
-                    username.setText(user.getUsername());
-                    nickname.setText(user.getNickname());
-                    //只有申请加入群组且被同意以后才有群组号
-                    if(user.getState().intValue() == 1){
-                        groupNumber.setText(user.getGroupNumber());
-                    }
+                    BmobQuery<UserState> categoryBmobQuery = new BmobQuery<>();
+                    categoryBmobQuery.addWhereEqualTo("username", user.getUsername());
+                    categoryBmobQuery.findObjects(new FindListener<UserState>() {
+                        @Override
+                        public void done(List<UserState> object, BmobException e) {
+                            if (e == null) {
+                                username.setText(object.get(0).getUsername());
+                                nickname.setText(object.get(0).getNickname());
+                                //只有申请加入群组且被同意以后才有群组号
+                                if(object.get(0).getState().intValue() == 1){
+                                    groupNumber.setText(object.get(0).getGroupNumber());
+                                }
+                            } else {
+                                Toast.makeText(getActivity(),"加载userState失败",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }else {
-                    Toast.makeText(getActivity(),"加载失败",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),"加载user失败",Toast.LENGTH_SHORT).show();
                 }
             }
         });

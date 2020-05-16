@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.zhi.Bean.User;
+import com.example.zhi.Bean.UserState;
 import com.example.zhi.R;
 
 import java.util.Random;
@@ -79,20 +80,26 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             case R.id.register:
 
                 User user = new User();
+                UserState userState = new UserState();
+
                 if(yes.isChecked()){
                     mIsCommittee = 1;
                     mState = 1;
                     //随机生成8位群组号
                     mGroupNumber = getRandomString(8);
                 }
-                //赋值到user
+
+                //赋值到User
                 user.setUsername(username.getText().toString().trim());
                 user.setPassword(password.getText().toString().trim());
                 user.setNickname(nickname.getText().toString().trim());
 
-                user.setGroupNumber(mGroupNumber);
-                user.setIsCommittee(mIsCommittee);
-                user.setState(mState);
+                //赋值到UserState
+                userState.setUsername(username.getText().toString().trim());
+                userState.setNickname(nickname.getText().toString().trim());
+                userState.setGroupNumber(mGroupNumber);
+                userState.setIsCommittee(mIsCommittee);
+                userState.setState(mState);
 
 
                 if(username.getText().toString().equals("")){
@@ -104,6 +111,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                 }else{
                     if(nickname.getText().toString().equals("")){
                         user.setNickname("未设置昵称");
+                        userState.setNickname("未设置昵称");
                     }
                     user.signUp(new SaveListener<User>() {
                         @Override
