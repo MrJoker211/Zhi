@@ -62,8 +62,6 @@ public class ChoiceTest extends AppCompatActivity implements View.OnClickListene
         setClick();
         //获取问题，初始化界面,获取初始位置为0的内容，保证每次启动这个界面都从零开始
         getQuestion();
-
-
     }
 
     //加载问题

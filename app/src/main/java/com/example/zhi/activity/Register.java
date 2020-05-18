@@ -7,17 +7,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.zhi.Bean.User;
 import com.example.zhi.Bean.UserState;
 import com.example.zhi.R;
-
 import java.util.Random;
-
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
@@ -113,6 +108,16 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                         user.setNickname("未设置昵称");
                         userState.setNickname("未设置昵称");
                     }
+
+                    userState.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String objectId,BmobException e) {
+                            if(e!=null){
+                                Toast.makeText(Register.this,"存储数据失败！",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
                     user.signUp(new SaveListener<User>() {
                         @Override
                         public void done(User user, BmobException e) {

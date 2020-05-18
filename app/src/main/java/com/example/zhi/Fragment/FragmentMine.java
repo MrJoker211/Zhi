@@ -46,10 +46,13 @@ public class FragmentMine extends Fragment implements View.OnClickListener {
     private Button joinGroup;
     private Button joinExam;
 
+    private UserState mUserState = new UserState();
+    private int mIsCommittee = 1;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragmentmine,container,false);
+        return inflater.inflate(R.layout.fragmentmine, container, false);
     }
 
     @Override
@@ -57,12 +60,12 @@ public class FragmentMine extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         //初始化控件
         initView();
+        //获取到UserState对象
+        getUserState();
         //加载我的信息
         getMyinfo();
-
         //设置监听点击事件
         setClick();
-
     }
 
     private void setClick() {
@@ -74,17 +77,46 @@ public class FragmentMine extends Fragment implements View.OnClickListener {
         joinExam.setOnClickListener(this);
     }
 
-    private void getMyinfo() {
+    private void getUserState() {
         //加载个人信息,通过父类的函数获取当前的对象
         BmobUser bmobUser = BmobUser.getCurrentUser(BmobUser.class);
         String Id = bmobUser.getObjectId();
-
         //通过封装的函数进行查询
         BmobQuery<User> bmobQuery = new BmobQuery<>();
         bmobQuery.getObject(Id, new QueryListener<User>() {
             @Override
             public void done(User user, BmobException e) {
-                if(e == null){
+                if (e == null) {
+                    BmobQuery<UserState> categoryBmobQuery = new BmobQuery<>();
+                    categoryBmobQuery.addWhereEqualTo("username", user.getUsername());
+                    categoryBmobQuery.findObjects(new FindListener<UserState>() {
+                        @Override
+                        public void done(List<UserState> object, BmobException e) {
+                            if (e == null) {
+                                mUserState = object.get(0);
+                                mIsCommittee = object.get(0).getIsCommittee().intValue();
+                            } else {
+                                Toast.makeText(getActivity(), "加载userState失败", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(getActivity(), "加载user失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void getMyinfo() {
+        //加载个人信息,通过父类的函数获取当前的对象
+        BmobUser bmobUser = BmobUser.getCurrentUser(BmobUser.class);
+        String Id = bmobUser.getObjectId();
+        //通过封装的函数进行查询
+        BmobQuery<User> bmobQuery = new BmobQuery<>();
+        bmobQuery.getObject(Id, new QueryListener<User>() {
+            @Override
+            public void done(User user, BmobException e) {
+                if (e == null) {
                     BmobQuery<UserState> categoryBmobQuery = new BmobQuery<>();
                     categoryBmobQuery.addWhereEqualTo("username", user.getUsername());
                     categoryBmobQuery.findObjects(new FindListener<UserState>() {
@@ -93,17 +125,17 @@ public class FragmentMine extends Fragment implements View.OnClickListener {
                             if (e == null) {
                                 username.setText(object.get(0).getUsername());
                                 nickname.setText(object.get(0).getNickname());
-                                //只有申请加入群组且被同意以后才有群组号
-                                if(object.get(0).getState().intValue() == 1){
-                                    groupNumber.setText(object.get(0).getGroupNumber());
+                                //只有申请加入群组且被同意且重新登录以后才有群组号
+                                if ((object.get(0).getState().intValue() == 1)) {
+                                    groupNumber.setText(mUserState.getGroupNumber());
                                 }
                             } else {
-                                Toast.makeText(getActivity(),"加载userState失败",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "加载userState失败", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                }else {
-                    Toast.makeText(getActivity(),"加载user失败",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "加载user失败", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -124,7 +156,7 @@ public class FragmentMine extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.login_out:
                 //并不是真正意义的退出，让用户信息不再记录到App中
                 //然后用finish结束活动  才算退出
@@ -133,19 +165,39 @@ public class FragmentMine extends Fragment implements View.OnClickListener {
                 getActivity().finish();
                 break;
             case R.id.manage_group:
-                startActivity(new Intent(getActivity(), ManageGroup.class));
+                if(mIsCommittee == 1){
+                    startActivity(new Intent(getActivity(), ManageGroup.class));
+                }else {
+                    Toast.makeText(getActivity(), "您不是委员，没有操作权限！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.release_exam:
-                startActivity(new Intent(getActivity(), ReleaseExam.class));
+                if(mIsCommittee == 1){
+                    startActivity(new Intent(getActivity(), ReleaseExam.class));
+                }else {
+                    Toast.makeText(getActivity(), "您不是委员，没有操作权限！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.exam_record:
-                startActivity(new Intent(getActivity(), ExamRecord.class));
+                if(mIsCommittee == 1){
+                    startActivity(new Intent(getActivity(), ExamRecord.class));
+                }else {
+                    Toast.makeText(getActivity(), "您不是委员，没有操作权限！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.join_group:
-                startActivity(new Intent(getActivity(), JoinGroup.class));
+                if(mIsCommittee == 0){
+                    startActivity(new Intent(getActivity(), JoinGroup.class));
+                }else {
+                    Toast.makeText(getActivity(), "您是委员，不用加入群组！", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.join_exam:
-                startActivity(new Intent(getActivity(), JoinExam.class));
+                if(mIsCommittee == 0){
+                    startActivity(new Intent(getActivity(), JoinExam.class));
+                }else {
+                    Toast.makeText(getActivity(), "您是委员，不可参加考试！", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
