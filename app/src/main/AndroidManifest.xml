@@ -107,6 +107,9 @@
         <activity android:name=".groupTest.ReleaseExam">
 
         </activity>
+        <activity android:name=".groupTest.StartExam">
+
+        </activity>
 
     </application>
 

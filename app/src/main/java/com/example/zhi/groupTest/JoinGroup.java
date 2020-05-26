@@ -63,11 +63,9 @@ public class JoinGroup extends AppCompatActivity implements View.OnClickListener
                 //获取当前用户
                 //加载个人信息,通过父类的函数获取当前的对象
                 BmobUser bmobUser = BmobUser.getCurrentUser(BmobUser.class);
-                String Id = bmobUser.getObjectId();
                 String username = bmobUser.getUsername();
                 //先将群组号改为输入号
                 //再将当前用户state改为0
-
                 BmobQuery<UserState> categoryBmobQuery = new BmobQuery<>();
                 categoryBmobQuery.addWhereEqualTo("username",username);
                 categoryBmobQuery.findObjects(new FindListener<UserState>() {
