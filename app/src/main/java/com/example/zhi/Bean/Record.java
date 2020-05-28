@@ -4,21 +4,11 @@ import cn.bmob.v3.BmobObject;
 
 public class Record extends BmobObject {
 
-    private String groupNumber;
-
     private String testName;
     private String username;
     private String studentName;
-
     private Number record;
 
-    public String getGroupNumber() {
-        return groupNumber;
-    }
-
-    public void setGroupNumber(String groupNumber) {
-        this.groupNumber = groupNumber;
-    }
 
     public String getTestName() {
         return testName;

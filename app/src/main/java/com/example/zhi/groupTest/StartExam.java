@@ -10,27 +10,25 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.zhi.Bean.ChoiceForGroup;
-import com.example.zhi.Bean.ChoiceTable;
+import com.example.zhi.Bean.Record;
 import com.example.zhi.R;
-import com.example.zhi.test.CompetitionTest;
 import com.example.zhi.test.ReportCard;
-
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.SaveListener;
 
 public class StartExam extends AppCompatActivity  implements View.OnClickListener {
 
+    //测试名
+    private TextView testName;
     //题目序号
     private TextView titleNumber;
     //题目
@@ -40,29 +38,18 @@ public class StartExam extends AppCompatActivity  implements View.OnClickListene
     private TextView choiceB;
     private TextView choiceC;
     private TextView choiceD;
-
     //选择框
     private CheckBox checkBoxA;
     private CheckBox checkBoxB;
     private CheckBox checkBoxC;
     private CheckBox checkBoxD;
-
-    //答案
-    private TextView answerTitle;
-    private TextView answer;
-
-    //确定，下一题，完成
+    //确定
     private Button sure;
-    private Button nextQuestion;
-    private Button finish;
-
     //剩余的分和秒
     private TextView lastMinute;
     private TextView lastSecond;
-
     //总时间
     private long mCount = 60;
-
     //表长
     private int mTableLength;
     //数据的现在位置
@@ -132,9 +119,26 @@ public class StartExam extends AppCompatActivity  implements View.OnClickListene
 
     }
 
+    //先将数据存入到Record表中
     //执行带着数据进行跳转操作
-    //此处需改成将数据存入Record表中
     private void toReport() {
+        /*
+        * 存数据到Record表中，mTestName，mStudentName，mUsername
+        * */
+        Record record = new Record();
+        record.setTestName(mTestName);
+        record.setStudentName(mStudentName);
+        record.setUsername(mUsername);
+        record.setRecord(mRight*10);
+        record.save(new SaveListener<String>() {
+            @Override
+            public void done(String objectId,BmobException e) {
+                if(e!=null){
+                    Toast.makeText(StartExam.this, "存储成绩失败！", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         Intent intent = new Intent(StartExam.this, ReportCard.class);
         intent.putExtra("right",mRight);
         intent.putExtra("wrong",mWrong);
@@ -159,13 +163,13 @@ public class StartExam extends AppCompatActivity  implements View.OnClickListene
                         @Override
                         public void done(ChoiceForGroup choiceForGroup, BmobException e) {
                             if (e == null) {
+                                testName.setText(mTestName);
                                 titleNumber.setText(String.valueOf(mCurrentIndex+1));
                                 title.setText(choiceForGroup.getTitle());
                                 choiceA.setText(choiceForGroup.getChoiceA());
                                 choiceB.setText(choiceForGroup.getChoiceB());
                                 choiceC.setText(choiceForGroup.getChoiceC());
                                 choiceD.setText(choiceForGroup.getChoiceD());
-                                answer.setText(choiceForGroup.getAnswer());
                             } else {
                                 Toast.makeText(StartExam.this, "渲染界面失败", Toast.LENGTH_SHORT).show();
                             }
@@ -184,10 +188,7 @@ public class StartExam extends AppCompatActivity  implements View.OnClickListene
         checkBoxB.setOnClickListener(this);
         checkBoxC.setOnClickListener(this);
         checkBoxD.setOnClickListener(this);
-
         sure.setOnClickListener(this);
-        nextQuestion.setOnClickListener(this);
-        finish.setOnClickListener(this);
     }
 
     //点击事件的处理
@@ -221,8 +222,6 @@ public class StartExam extends AppCompatActivity  implements View.OnClickListene
             case R.id.sure:
                 //如果已经选定了答案就显示出答案,如果都未被选中就弹出请选择答案
                 if (!((!checkBoxA.isChecked()) && (!checkBoxB.isChecked()) && (!checkBoxC.isChecked()) && (!checkBoxD.isChecked()))) {
-                    answerTitle.setVisibility(View.VISIBLE);
-                    answer.setVisibility(View.VISIBLE);
                     //如果有一个被选中，对应到A,B,C,D然后与正确答案比较
                     if (checkBoxA.isChecked()) {
                         checkAnswer("A");
@@ -233,83 +232,60 @@ public class StartExam extends AppCompatActivity  implements View.OnClickListene
                     } else if (checkBoxD.isChecked()) {
                         checkAnswer("D");
                     }
+                    //判定完答案就跳转到下一题
+                    if (mCurrentIndex == (mAll-1)) {
+                        //在到达最后一题还按下一题就会提示这个
+                        Toast.makeText(StartExam.this, "当前内容为最后一题！", Toast.LENGTH_SHORT).show();
+                        //如果判定为最后一题就把它提交
+                        //执行带着数据进行跳转
+                        toReport();
+                    } else {
+                        //将答案栏隐藏,并清除选项框的选中状态
+                        checkBoxA.setChecked(false);
+                        checkBoxB.setChecked(false);
+                        checkBoxC.setChecked(false);
+                        checkBoxD.setChecked(false);
+                        mCurrentIndex = mCurrentIndex + 1;
+                        getQuestion();
+                    }
                 }else {
                     Toast.makeText(StartExam.this, "请您选择一个答案！", Toast.LENGTH_SHORT).show();
                 }
-                break;
-            case R.id.next_question:
-                //判定完答案就跳转到下一题
-                if (mCurrentIndex == (mAll-1)) {
-                    //在到达最后一题还按下一题就会提示这个
-                    Toast.makeText(StartExam.this, "当前内容为最后一题！", Toast.LENGTH_SHORT).show();
-                } else {
-                    //将答案栏隐藏,并清除选项框的选中状态
-                    checkBoxA.setChecked(false);
-                    checkBoxB.setChecked(false);
-                    checkBoxC.setChecked(false);
-                    checkBoxD.setChecked(false);
-                    answerTitle.setVisibility(View.INVISIBLE);
-                    answer.setVisibility(View.INVISIBLE);
-                    mCurrentIndex = mCurrentIndex + 1;
-                    getQuestion();
-                }
-                if(mCurrentIndex == (mAll-1)){
-                    //在到达最后一题时显示完成按钮
-                    finish.setVisibility(View.VISIBLE);
-                }
-                break;
-            case R.id.finish:
-                //执行带着数据进行跳转
-                toReport();
                 break;
             default:
                 break;
         }
     }
 
-    //点击确定后核对选择的答案
     private void checkAnswer(final String checkAnswer) {
-        //此处可以添加寻找Id的内容，方便切换题目
-        //加载问题
-        BmobQuery<ChoiceForGroup> bmobQuery = new BmobQuery<>();
-        bmobQuery.addQueryKeys("objectId");
-        bmobQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);    // 先从缓存获取数据，如果没有，再从网络获取。
-        bmobQuery.findObjects(new FindListener<ChoiceForGroup>() {
+        //根据当前在界面上渲染的题目进行查询
+        BmobQuery<ChoiceForGroup> choiceForGroupBmobQuery = new BmobQuery<>();
+        choiceForGroupBmobQuery.addWhereEqualTo("title", title.getText().toString().trim());
+        choiceForGroupBmobQuery.findObjects(new FindListener<ChoiceForGroup>() {
             @Override
             public void done(List<ChoiceForGroup> object, BmobException e) {
                 if (e == null) {
-                    //此处查询获取到的list列表数据不是按照id进行排序的，需要重新按照id进行排序后再查询
-                    //不然每经历一次查询顺序都会不一样
-                    BmobQuery<ChoiceForGroup> bmobQuery = new BmobQuery<>();
-                    //根据当前的题目id，加载对应的答案
-                    bmobQuery.getObject(object.get(mCurrentIndex).getObjectId(), new QueryListener<ChoiceForGroup>() {
-                        @Override
-                        public void done(ChoiceForGroup choiceForGroup, BmobException e) {
-                            if (e == null) {
-                                //正确答案与输入相比较
-                                if (choiceForGroup.getAnswer().equals(checkAnswer)) {
-                                    mRight = mRight + 1;
-                                    mNotResponse = mNotResponse - 1;
-                                    Toast.makeText(StartExam.this, "回答正确，干得漂亮！", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    mWrong = mWrong + 1;
-                                    mNotResponse = mNotResponse - 1;
-                                    Toast.makeText(StartExam.this, "做错了，再接再厉！正确答案是"+choiceForGroup.getAnswer(), Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                Toast.makeText(StartExam.this, "加载答案失败", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                    if(object.get(0).getAnswer().equals(checkAnswer)){
+                        //做对
+                        mRight = mRight + 1;
+                        mNotResponse = mNotResponse - 1;
+                        Toast.makeText(StartExam.this, "回答正确，干得漂亮！", Toast.LENGTH_SHORT).show();
+                    }else{
+                        //做错
+                        mWrong = mWrong + 1;
+                        mNotResponse = mNotResponse - 1;
+                        Toast.makeText(StartExam.this, "做错了，再接再厉！正确答案是"+object.get(0).getAnswer(), Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(StartExam.this, "查询ObjectId失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StartExam.this, "加载答案失败", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-
     //初始化控件
     private void initView() {
+
+        testName = findViewById(R.id.test_name);
         titleNumber = findViewById(R.id.title_number);
         title = findViewById(R.id.choice_title);
 
@@ -323,12 +299,7 @@ public class StartExam extends AppCompatActivity  implements View.OnClickListene
         checkBoxC = findViewById(R.id.checkbox_c);
         checkBoxD = findViewById(R.id.checkbox_d);
 
-        answerTitle = findViewById(R.id.answer_title);
-        answer = findViewById(R.id.answer);
-
         sure = findViewById(R.id.sure);
-        nextQuestion = findViewById(R.id.next_question);
-        finish = findViewById(R.id.finish);
 
         lastMinute = findViewById(R.id.last_minute);
         lastSecond = findViewById(R.id.last_second);

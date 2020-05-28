@@ -27,43 +27,29 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
 
     //题目序号
     private TextView titleNumber;
-
     //题目
     private TextView title;
-
     //选项
     private TextView choiceA;
     private TextView choiceB;
     private TextView choiceC;
     private TextView choiceD;
-
     //选择框
     private CheckBox checkBoxA;
     private CheckBox checkBoxB;
     private CheckBox checkBoxC;
     private CheckBox checkBoxD;
-
-    //答案
-    private TextView answerTitle;
-    private TextView answer;
-
-    //确定，下一题，完成
+    //确定
     private Button sure;
-    private Button nextQuestion;
-    private Button finish;
-
     //剩余的分和秒
     private TextView lastMinute;
     private TextView lastSecond;
-
     //总时间
     private long mCount = 60;
-
     //表长
     private int mTableLength;
     //数据的现在位置
     private int mCurrentIndex = 0;
-
     //记录正确与错误和未做答的数量 以及题目的总数量
     private int mRight = 0;
     private int mWrong = 0;
@@ -98,7 +84,6 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.competition_test);
         //初始化控件
         initView();
-
         //设置计时器
         timer=new Timer();
         timer.schedule(new TimerTask() {
@@ -110,7 +95,6 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
                 mHandler.sendMessage(message);
             }
         },0,1000);//每隔一秒使用handler发送一下消息,也就是每隔一秒执行一次,一直重复执行
-
         //设置控件点击监听
         setClick();
         //获取问题，初始化界面,获取初始位置为0的内容，保证每次启动这个界面都从零开始
@@ -150,7 +134,6 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
                                 choiceB.setText(choiceTable.getChoiceB());
                                 choiceC.setText(choiceTable.getChoiceC());
                                 choiceD.setText(choiceTable.getChoiceD());
-                                answer.setText(choiceTable.getAnswer());
                             } else {
                                 Toast.makeText(CompetitionTest.this, "加载失败", Toast.LENGTH_SHORT).show();
                                 System.out.println(e.getMessage());
@@ -170,10 +153,7 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
         checkBoxB.setOnClickListener(this);
         checkBoxC.setOnClickListener(this);
         checkBoxD.setOnClickListener(this);
-
         sure.setOnClickListener(this);
-        nextQuestion.setOnClickListener(this);
-        finish.setOnClickListener(this);
     }
 
     //点击事件的处理
@@ -207,8 +187,6 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
             case R.id.sure:
                 //如果已经选定了答案就显示出答案,如果都未被选中就弹出请选择答案
                 if (!((!checkBoxA.isChecked()) && (!checkBoxB.isChecked()) && (!checkBoxC.isChecked()) && (!checkBoxD.isChecked()))) {
-                    answerTitle.setVisibility(View.VISIBLE);
-                    answer.setVisibility(View.VISIBLE);
                     //如果有一个被选中，对应到A,B,C,D然后与正确答案比较
                     if (checkBoxA.isChecked()) {
                         checkAnswer("A");
@@ -219,34 +197,24 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
                     } else if (checkBoxD.isChecked()) {
                         checkAnswer("D");
                     }
+                    //判定完答案就跳转到下一题
+                    if (mCurrentIndex == (mAll-1)) {
+                        //在到达最后一题还按下一题就会提示这个
+                        Toast.makeText(CompetitionTest.this, "当前内容为最后一题！", Toast.LENGTH_SHORT).show();
+                        //执行带着数据进行跳转
+                        toReport();
+                    } else {
+                        //将答案栏隐藏,并清除选项框的选中状态
+                        checkBoxA.setChecked(false);
+                        checkBoxB.setChecked(false);
+                        checkBoxC.setChecked(false);
+                        checkBoxD.setChecked(false);
+                        mCurrentIndex = mCurrentIndex + 1;
+                        getQuestion();
+                    }
                 }else {
                     Toast.makeText(CompetitionTest.this, "请您选择一个答案！", Toast.LENGTH_SHORT).show();
                 }
-                break;
-            case R.id.next_question:
-                //判定完答案就跳转到下一题
-                if (mCurrentIndex == (mAll-1)) {
-                    //在到达最后一题还按下一题就会提示这个
-                    Toast.makeText(CompetitionTest.this, "当前内容为最后一题！", Toast.LENGTH_SHORT).show();
-                } else {
-                    //将答案栏隐藏,并清除选项框的选中状态
-                    checkBoxA.setChecked(false);
-                    checkBoxB.setChecked(false);
-                    checkBoxC.setChecked(false);
-                    checkBoxD.setChecked(false);
-                    answerTitle.setVisibility(View.INVISIBLE);
-                    answer.setVisibility(View.INVISIBLE);
-                    mCurrentIndex = mCurrentIndex + 1;
-                    getQuestion();
-                }
-                if(mCurrentIndex == (mAll-1)){
-                    //在到达最后一题时显示完成按钮
-                    finish.setVisibility(View.VISIBLE);
-                }
-                break;
-            case R.id.finish:
-                //执行带着数据进行跳转
-                toReport();
                 break;
             default:
                 break;
@@ -298,26 +266,16 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
     private void initView() {
         titleNumber = findViewById(R.id.title_number);
         title = findViewById(R.id.choice_title);
-
         choiceA = findViewById(R.id.choice_a);
         choiceB = findViewById(R.id.choice_b);
         choiceC = findViewById(R.id.choice_c);
         choiceD = findViewById(R.id.choice_d);
-
         checkBoxA = findViewById(R.id.checkbox_a);
         checkBoxB = findViewById(R.id.checkbox_b);
         checkBoxC = findViewById(R.id.checkbox_c);
         checkBoxD = findViewById(R.id.checkbox_d);
-
-        answerTitle = findViewById(R.id.answer_title);
-        answer = findViewById(R.id.answer);
-
         sure = findViewById(R.id.sure);
-        nextQuestion = findViewById(R.id.next_question);
-        finish = findViewById(R.id.finish);
-
         lastMinute = findViewById(R.id.last_minute);
         lastSecond = findViewById(R.id.last_second);
-
     }
 }

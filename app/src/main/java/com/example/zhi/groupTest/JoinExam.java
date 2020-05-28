@@ -20,7 +20,7 @@ public class JoinExam extends AppCompatActivity implements View.OnClickListener{
     private EditText studentName;
     private Button sure;
 
-    //获取当前用户名，获取测试名
+    //获取当前用户名，获取测试名，获取测试者之名，获取群组号
     private String mStudentName;
     private String mUsername;
     private String mTestName;

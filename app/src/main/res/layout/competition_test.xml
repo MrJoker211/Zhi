@@ -107,26 +107,6 @@
         android:layout_marginLeft="70dp"
         android:textSize="20sp"/>
 
-    <!--答案-->
-    <TextView
-        android:id="@+id/answer_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="答案:"
-        android:visibility="invisible"
-        android:textSize="20sp"
-        android:layout_marginTop="430dp"
-        android:layout_marginLeft="40dp"/>
-    <TextView
-        android:id="@+id/answer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:textSize="20sp"
-        android:layout_marginTop="430dp"
-        android:layout_marginLeft="90dp"/>
-
-
     <Button
         android:id="@+id/sure"
         android:layout_width="wrap_content"
@@ -134,23 +114,6 @@
         android:layout_marginTop="460dp"
         android:layout_centerHorizontal="true"
         android:text="确定"/>
-    <Button
-        android:id="@+id/next_question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="500dp"
-        android:layout_centerHorizontal="true"
-        android:text="下一题"/>
-    <Button
-        android:id="@+id/finish"
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="540dp"
-        android:layout_centerHorizontal="true"
-        android:text="完成"/>
-
-
 
     <TextView
         android:layout_width="wrap_content"
