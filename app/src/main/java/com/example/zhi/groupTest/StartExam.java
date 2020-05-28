@@ -14,12 +14,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.zhi.Bean.ChoiceForGroup;
 import com.example.zhi.Bean.Record;
+import com.example.zhi.Bean.UserState;
 import com.example.zhi.R;
 import com.example.zhi.test.ReportCard;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
@@ -65,6 +67,8 @@ public class StartExam extends AppCompatActivity  implements View.OnClickListene
     private String mTestName;
     private String mStudentName;
     private String mUsername;
+
+    private String mGroupNumber;
 
     @SuppressLint("HandlerLeak")
     // (2) 使用handler处理接收到的消息
@@ -123,13 +127,30 @@ public class StartExam extends AppCompatActivity  implements View.OnClickListene
     //执行带着数据进行跳转操作
     private void toReport() {
         /*
-        * 存数据到Record表中，mTestName，mStudentName，mUsername
+        * 存数据到Record表中，mTestName，mStudentName，mUsername，mGroupNumber
         * */
+        //查询mGroupNumber
+        BmobUser bmobUser = BmobUser.getCurrentUser(BmobUser.class);
+        String username = bmobUser.getUsername();
+        BmobQuery<UserState> categoryBmobQuery = new BmobQuery<>();
+        categoryBmobQuery.addWhereEqualTo("username",username);
+        categoryBmobQuery.findObjects(new FindListener<UserState>() {
+            @Override
+            public void done(List<UserState> object, BmobException e) {
+                if (e == null) {
+                    mGroupNumber = object.get(0).getGroupNumber();
+                } else {
+                    Toast.makeText(StartExam.this,"查询用户失败",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         Record record = new Record();
         record.setTestName(mTestName);
         record.setStudentName(mStudentName);
         record.setUsername(mUsername);
         record.setRecord(mRight*10);
+        record.setGroupNumber(mGroupNumber);
         record.save(new SaveListener<String>() {
             @Override
             public void done(String objectId,BmobException e) {

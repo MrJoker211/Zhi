@@ -44,9 +44,7 @@ public class ReportCard extends AppCompatActivity implements View.OnClickListene
         right = intent.getIntExtra("right",10);
         wrong = intent.getIntExtra("wrong",10);
         notResponse = intent.getIntExtra("notResponse",10);
-
         rightPercent = right*10;
-        //data = intent.getStringExtra("notResponse");
 
         initView();
 

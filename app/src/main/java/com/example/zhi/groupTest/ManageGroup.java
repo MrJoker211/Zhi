@@ -8,9 +8,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.zhi.Bean.User;
-import com.example.zhi.MainActivity;
-import com.example.zhi.activity.Splash;
 import com.example.zhi.utils.UserName;
 import com.example.zhi.Bean.UserState;
 import com.example.zhi.R;
@@ -26,8 +23,6 @@ public class ManageGroup extends AppCompatActivity implements View.OnClickListen
     private List<UserName> userNameList = new ArrayList<>();
     private UserState mUser = new UserState();
     private Button refresh;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,9 +116,6 @@ public class ManageGroup extends AppCompatActivity implements View.OnClickListen
                         recyclerView.setLayoutManager(layoutManager);
                         UserNameAdapter adapter = new UserNameAdapter(userNameList);
                         recyclerView.setAdapter(adapter);
-
-
-
                     }
                 } else {
                     Toast.makeText(ManageGroup.this, "加载失败", Toast.LENGTH_SHORT).show();

@@ -95,6 +95,9 @@
         <activity android:name=".groupTest.ExamRecord">
 
         </activity>
+        <activity android:name=".groupTest.ShowRecord">
+
+        </activity>
         <activity android:name=".groupTest.JoinExam">
 
         </activity>

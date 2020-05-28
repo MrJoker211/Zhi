@@ -8,7 +8,15 @@ public class Record extends BmobObject {
     private String username;
     private String studentName;
     private Number record;
+    private String groupNumber;
 
+    public String getGroupNumber() {
+        return groupNumber;
+    }
+
+    public void setGroupNumber(String groupNumber) {
+        this.groupNumber = groupNumber;
+    }
 
     public String getTestName() {
         return testName;
