@@ -45,7 +45,7 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
     private TextView lastMinute;
     private TextView lastSecond;
     //总时间
-    private long mCount = 60;
+    private long mCount = 600;
     //表长
     private int mTableLength;
     //数据的现在位置
@@ -109,6 +109,7 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
         intent.putExtra("wrong",mWrong);
         intent.putExtra("notResponse",mNotResponse);
         startActivity(intent);
+        timer.cancel();
         finish();
     }
 

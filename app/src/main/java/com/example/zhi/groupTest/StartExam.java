@@ -51,7 +51,7 @@ public class StartExam extends AppCompatActivity  implements View.OnClickListene
     private TextView lastMinute;
     private TextView lastSecond;
     //总时间
-    private long mCount = 60;
+    private long mCount = 600;
     //表长
     private int mTableLength;
     //数据的现在位置

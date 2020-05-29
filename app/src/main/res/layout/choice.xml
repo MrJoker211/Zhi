@@ -27,31 +27,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkbox_a"
-
-        android:layout_marginTop="300dp"
-        android:layout_marginLeft="30dp"/>
+        android:text="A , "
+        android:textSize="16sp"
+        android:layout_marginTop="270dp"
+        android:layout_marginLeft="15dp"/>
     <TextView
         android:id="@+id/choice_a"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        android:layout_marginLeft="70dp"
-        android:textSize="20sp"/>
+        android:layout_marginTop="275dp"
+        android:layout_marginLeft="70dp" />
 
     <!--B-->
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkbox_b"
+        android:text="B , "
+        android:textSize="16sp"
         android:layout_marginTop="330dp"
-        android:layout_marginLeft="30dp"/>
+        android:layout_marginLeft="15dp"/>
     <TextView
         android:id="@+id/choice_b"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="330dp"
-        android:layout_marginLeft="70dp"
-        android:textSize="20sp"/>
+        android:layout_marginTop="335dp"
+        android:layout_marginLeft="70dp" />
 
 
     <!--C-->
@@ -59,30 +60,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkbox_c"
-        android:layout_marginTop="360dp"
-        android:layout_marginLeft="30dp"/>
+        android:text="C , "
+        android:textSize="16sp"
+        android:layout_marginTop="390dp"
+        android:layout_marginLeft="15dp"/>
     <TextView
         android:id="@+id/choice_c"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="360dp"
-        android:layout_marginLeft="70dp"
-        android:textSize="20sp"/>
+        android:layout_marginTop="395dp"
+        android:layout_marginLeft="70dp" />
 
     <!--D-->
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkbox_d"
-        android:layout_marginTop="390dp"
-        android:layout_marginLeft="30dp"/>
+        android:text="D , "
+        android:textSize="16sp"
+        android:layout_marginTop="460dp"
+        android:layout_marginLeft="15dp"/>
     <TextView
         android:id="@+id/choice_d"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="390dp"
-        android:layout_marginLeft="70dp"
-        android:textSize="20sp"/>
+        android:layout_marginTop="465dp"
+        android:layout_marginLeft="70dp" />
 
     <!--答案-->
     <TextView
@@ -91,16 +94,14 @@
         android:layout_height="wrap_content"
         android:text="答案:"
         android:visibility="invisible"
-        android:textSize="20sp"
-        android:layout_marginTop="430dp"
+        android:layout_marginTop="530dp"
         android:layout_marginLeft="40dp"/>
     <TextView
         android:id="@+id/answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        android:textSize="20sp"
-        android:layout_marginTop="430dp"
+        android:layout_marginTop="530dp"
         android:layout_marginLeft="90dp"/>
 
 
@@ -108,7 +109,7 @@
         android:id="@+id/sure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="480dp"
+        android:layout_marginTop="540dp"
         android:layout_centerHorizontal="true"
         android:text="确定"/>
 
@@ -116,14 +117,14 @@
         android:id="@+id/last_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="540dp"
+        android:layout_marginTop="560dp"
         android:layout_marginLeft="40dp"
         android:text="上一题"/>
     <Button
         android:id="@+id/next_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="540dp"
+        android:layout_marginTop="560dp"
         android:layout_marginLeft="280dp"
         android:text="下一题"/>
 

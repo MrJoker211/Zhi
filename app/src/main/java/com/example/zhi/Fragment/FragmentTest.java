@@ -25,9 +25,6 @@ public class FragmentTest extends Fragment {
 
     private Button choiceTest;
     private Button judgeTest;
-
-    private Button groupTest;
-
     private Button competitionTest;
 
     @Nullable
@@ -64,13 +61,6 @@ public class FragmentTest extends Fragment {
                 startActivity(new Intent(getActivity(), JudgeTest.class));
             }
         });
-        //跳转到组卷公测
-        groupTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), GroupTest.class));
-            }
-        });
         //跳转到竞赛问答
         competitionTest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +73,6 @@ public class FragmentTest extends Fragment {
     private void initView() {
         choiceTest = getActivity().findViewById(R.id.choice_test);
         judgeTest = getActivity().findViewById(R.id.judge_test);
-        groupTest = getActivity().findViewById(R.id.group_test);
         competitionTest = getActivity().findViewById(R.id.competition_test);
     }
 }

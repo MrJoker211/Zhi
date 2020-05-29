@@ -51,31 +51,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkbox_a"
-
-        android:layout_marginTop="300dp"
-        android:layout_marginLeft="30dp"/>
+        android:text="A , "
+        android:textSize="16sp"
+        android:layout_marginTop="290dp"
+        android:layout_marginLeft="15dp"/>
     <TextView
         android:id="@+id/choice_a"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        android:layout_marginLeft="70dp"
-        android:textSize="20sp"/>
+        android:layout_marginTop="295dp"
+        android:layout_marginLeft="70dp" />
 
     <!--B-->
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkbox_b"
-        android:layout_marginTop="330dp"
-        android:layout_marginLeft="30dp"/>
+        android:text="B , "
+        android:textSize="16sp"
+        android:layout_marginTop="350dp"
+        android:layout_marginLeft="15dp"/>
     <TextView
         android:id="@+id/choice_b"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="330dp"
-        android:layout_marginLeft="70dp"
-        android:textSize="20sp"/>
+        android:layout_marginTop="355dp"
+        android:layout_marginLeft="70dp" />
 
 
     <!--C-->
@@ -83,36 +84,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkbox_c"
-        android:layout_marginTop="360dp"
-        android:layout_marginLeft="30dp"/>
+        android:text="C , "
+        android:textSize="16sp"
+        android:layout_marginTop="410dp"
+        android:layout_marginLeft="15dp"/>
     <TextView
         android:id="@+id/choice_c"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="360dp"
-        android:layout_marginLeft="70dp"
-        android:textSize="20sp"/>
+        android:layout_marginTop="415dp"
+        android:layout_marginLeft="70dp" />
 
     <!--D-->
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkbox_d"
-        android:layout_marginTop="390dp"
-        android:layout_marginLeft="30dp"/>
+        android:text="D , "
+        android:textSize="16sp"
+        android:layout_marginTop="480dp"
+        android:layout_marginLeft="15dp"/>
     <TextView
         android:id="@+id/choice_d"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="390dp"
-        android:layout_marginLeft="70dp"
-        android:textSize="20sp"/>
+        android:layout_marginTop="485dp"
+        android:layout_marginLeft="70dp" />
 
     <Button
         android:id="@+id/sure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="460dp"
+        android:layout_marginTop="540dp"
         android:layout_centerHorizontal="true"
         android:text="确定"/>
 
