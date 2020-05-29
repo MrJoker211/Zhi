@@ -41,6 +41,7 @@ public class ShowRecordAdapter extends RecyclerView.Adapter<ShowRecordAdapter.Vi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.record_list, parent, false);
         final ViewHolder holder = new ViewHolder(view);
+
         return holder;
     }
 
@@ -50,7 +51,7 @@ public class ShowRecordAdapter extends RecyclerView.Adapter<ShowRecordAdapter.Vi
 
         holder.userName.setText(recordInfo.getUsername());
         holder.studentName.setText(recordInfo.getStudentName());
-        holder.record.setText(recordInfo.getRecord());
+        holder.record.setText(String.format("%d", recordInfo.getRecord()));
     }
 
 

@@ -165,6 +165,7 @@ public class StartExam extends AppCompatActivity  implements View.OnClickListene
         intent.putExtra("wrong",mWrong);
         intent.putExtra("notResponse",mNotResponse);
         startActivity(intent);
+        timer.cancel();
         finish();
     }
 
