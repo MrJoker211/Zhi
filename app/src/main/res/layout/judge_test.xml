@@ -23,29 +23,19 @@
         android:layout_marginTop="60dp"/>
 
     <!--选项-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        android:layout_marginLeft="60dp"
-        android:text="对"
-        android:textSize="20sp"/>
     <CheckBox
         android:id="@+id/right"
+        android:text="对"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
         android:layout_marginLeft="30dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        android:layout_marginLeft="300dp"
-        android:text="错"
-        android:textSize="20sp"/>
     <CheckBox
         android:id="@+id/wrong"
+        android:text="错"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"

@@ -26,7 +26,6 @@ import cn.bmob.v3.listener.FindListener;
 public class ExamRecord extends AppCompatActivity implements View.OnClickListener{
     private EditText testName;
     private Button showRecord;
-
     private String mGroupNumber;
 
     @Override
@@ -57,21 +56,6 @@ public class ExamRecord extends AppCompatActivity implements View.OnClickListene
                 if(!(testName.getText().toString().trim().equals(""))){
                     //如果内容非空
                     //然后判断输入内容可以查找的到且在对应的群组号相同的情况下
-                    /*BmobQuery<Record> query = new BmobQuery<Record>();
-                    query.addWhereEqualTo("testName", testName.getText().toString().trim());
-                    query.count(Record.class, new CountListener() {
-                        @Override
-                        public void done(Integer count, BmobException e) {
-                            if(e==null){
-                                if(count==0){
-                                    //查询数据为零证明不存在该测试
-                                }
-                            }else{
-
-                            }
-                        }
-                    });*/
-
                     //此处执行查询得到当前用户的群组号
                     BmobUser bmobUser = BmobUser.getCurrentUser(BmobUser.class);
                     String username = bmobUser.getUsername();
@@ -102,16 +86,6 @@ public class ExamRecord extends AppCompatActivity implements View.OnClickListene
                     //查询符合整个and条件的人
                     BmobQuery<Record> query = new BmobQuery<Record>();
                     query.and(andQuerys);
-                    /*query.findObjects(new FindListener<Record>() {
-                        @Override
-                        public void done(List<Record> object, BmobException e) {
-                            if(e==null){
-
-                            }else{
-
-                            }
-                        }
-                    });*/
                     query.count(Record.class, new CountListener() {
                         @Override
                         public void done(Integer count, BmobException e) {

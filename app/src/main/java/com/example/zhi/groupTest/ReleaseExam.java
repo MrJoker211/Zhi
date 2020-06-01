@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.zhi.Bean.ChoiceForGroup;
 import com.example.zhi.Bean.ChoiceTable;
+import com.example.zhi.Bean.JudgeForGroup;
+import com.example.zhi.Bean.JudgeTable;
 import com.example.zhi.Bean.User;
 import com.example.zhi.Bean.UserState;
 import com.example.zhi.R;
@@ -39,7 +41,8 @@ public class ReleaseExam extends AppCompatActivity implements View.OnClickListen
 
     private int mChoice;
 
-    private int mTableLength = 0;
+    private int mTableLengthForChoice = 0;
+    private int mTableLengthForJudge = 0;
 
     private int mIndex[] = new int[10];
 
@@ -157,14 +160,62 @@ public class ReleaseExam extends AppCompatActivity implements View.OnClickListen
 
 
     //可以考虑获取试题跟将试题存起来要不要分开
-    private void getJudge(int i) {
+    private void getJudge(final int number) {
         /*
          * 首先查询判断题表
          * 获取表长
          * 从表长数字中随机获取i个数字，生成数组
          * 根据数组取出对应数据依次放到新的判断题表（JudgeForGroup）中
          * */
+        BmobQuery<JudgeTable> bmobQuery = new BmobQuery<JudgeTable>();
+        bmobQuery.addQueryKeys("objectId");
+        bmobQuery.findObjects(new FindListener<JudgeTable>() {
+            @Override
+            public void done(List<JudgeTable> object, BmobException e) {
+                if (e == null) {
+                    //此处查询获取到的list列表数据不是按照id进行排序的，需要重新按照id进行排序后再查询
+                    //生成在表长以内的索引值的数组
+                    mTableLengthForJudge = object.size();
+                    for (int i = 0; i < number ; i++) {
+                        mIndex[i]=(int)(Math.random()*mTableLengthForJudge);
+                    }
+                    for(int i = 0 ; i < number ; i++ ){
+                        BmobQuery<JudgeTable> bmobQuery = new BmobQuery<>();
+                        bmobQuery.getObject(object.get(mIndex[i]).getObjectId(), new QueryListener<JudgeTable>() {
+                            @Override
+                            public void done(JudgeTable judgeTable, BmobException e) {
+                                if (e == null) {
+                                    //往判断题表中写入数据
+                                    addToJudgeTable(judgeTable);
+                                } else {
+                                    Toast.makeText(ReleaseExam.this, "加载失败", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    Toast.makeText(ReleaseExam.this, "查询ObjectId失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
+    private void addToJudgeTable(JudgeTable judgeTable) {
+        //新建一个表对象
+        JudgeForGroup judgeForGroup = new JudgeForGroup();
+        judgeForGroup.setTestName(mTestName);
+        judgeForGroup.setBuilderUserName(mUsername);
+        judgeForGroup.setGroupNumber(mGroupNumber);
+        judgeForGroup.setTitle(judgeTable.getTitle());
+        judgeForGroup.setAnswer(judgeTable.getAnswer());
+        judgeForGroup.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if(e!=null){
+                    Toast.makeText(ReleaseExam.this,"存储数据失败！",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void getChoice(final int number) {
@@ -182,9 +233,9 @@ public class ReleaseExam extends AppCompatActivity implements View.OnClickListen
                 if (e == null) {
                     //此处查询获取到的list列表数据不是按照id进行排序的，需要重新按照id进行排序后再查询
                     //生成在表长以内的索引值的数组
-                    mTableLength = object.size();
+                    mTableLengthForChoice = object.size();
                     for (int i = 0; i < number ; i++) {
-                        mIndex[i]=(int)(Math.random()*mTableLength);
+                        mIndex[i]=(int)(Math.random()*mTableLengthForChoice);
                     }
                     for(int i = 0 ; i < number ; i++ ){
                         BmobQuery<ChoiceTable> bmobQuery = new BmobQuery<>();
@@ -210,18 +261,15 @@ public class ReleaseExam extends AppCompatActivity implements View.OnClickListen
     private void addToChoiceTable(ChoiceTable choiceTable){
         //新建一个表对象
         ChoiceForGroup choiceForGroup = new ChoiceForGroup();
-
         choiceForGroup.setTestName(mTestName);
         choiceForGroup.setBuilderUserName(mUsername);
         choiceForGroup.setGroupNumber(mGroupNumber);
-
         choiceForGroup.setTitle(choiceTable.getTitle());
         choiceForGroup.setAnswer(choiceTable.getAnswer());
         choiceForGroup.setChoiceA(choiceTable.getChoiceA());
         choiceForGroup.setChoiceB(choiceTable.getChoiceB());
         choiceForGroup.setChoiceC(choiceTable.getChoiceC());
         choiceForGroup.setChoiceD(choiceTable.getChoiceD());
-
         choiceForGroup.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
