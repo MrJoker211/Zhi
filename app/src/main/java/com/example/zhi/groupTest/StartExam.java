@@ -70,9 +70,8 @@ public class StartExam extends AppCompatActivity implements View.OnClickListener
     private TextView lastMinute;
     private TextView lastSecond;
     //总时间
-    private long mCount = 600;
-    //表长
-    private int mTableLength;
+    private long mCount = 300;
+
     //数据的现在位置
     private int mCurrentIndex = 0;
     //记录正确与错误和未做答的数量 以及题目的总数量

@@ -22,21 +22,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
     private ViewPager viewPager;
     private BottomNavigationBar bottomNavigationBar;
-
     private List<Fragment> fragments;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         viewPager = findViewById(R.id.viewpager);
         bottomNavigationBar = findViewById(R.id.bottom);
-
         initView();
-
-
     }
 
     private void initView() {
@@ -54,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
                         .setActiveColor(R.color.colorBase1)
                         .setInActiveColor(R.color.black);
 
-        bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.homepage_fill,"首页").setInactiveIconResource(R.drawable.homepage))
+        bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.homepage_fill,"题库").setInactiveIconResource(R.drawable.homepage))
                 .addItem(new BottomNavigationItem(R.drawable.test_fill,"测试").setInactiveIconResource(R.drawable.test))
                 .addItem(new BottomNavigationItem(R.drawable.mine_fill,"我的").setInactiveIconResource(R.drawable.mine))
                 //第一个显示面板，0代表第一个
@@ -67,18 +61,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
         //配置ViewPager
         //以当前页面为中心对左右进行缓存
         viewPager.setOffscreenPageLimit(3);
-
         fragments = new ArrayList<>();
-
         fragments.add(new FragmentHome());
         fragments.add(new FragmentTest());
         fragments.add(new FragmentMine());
-
-
         viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager(),fragments));
         viewPager.addOnPageChangeListener(this);
         viewPager.setCurrentItem(0);
-
     }
 
     @Override
@@ -88,23 +77,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
     @Override
     public void onTabUnselected(int position) {
-
     }
 
     @Override
     public void onTabReselected(int position) {
-
     }
 
 
     @Override
     public void onAdapterChanged(@NonNull ViewPager viewPager, @Nullable PagerAdapter oldAdapter, @Nullable PagerAdapter newAdapter) {
-
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
     }
 
     //设置底部导航栏跟随点击而动
@@ -115,6 +100,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
 }
