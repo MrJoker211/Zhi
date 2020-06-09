@@ -15,16 +15,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.zhi.Bean.ChoiceTable;
+import com.example.zhi.Bean.CompetitionRecord;
+import com.example.zhi.Bean.Record;
+import com.example.zhi.Bean.UserState;
 import com.example.zhi.R;
+import com.example.zhi.groupTest.StartExam;
+import com.example.zhi.utils.CompetitionInfo;
 
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.CountListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.SaveListener;
 
 public class CompetitionTest extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,7 +56,7 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
     private TextView lastMinute;
     private TextView lastSecond;
     //总时间
-    private long mCount = 300;
+    private int mCount = 100;
     //表长
     private int mTableLength;
     //数据的现在位置
@@ -65,6 +73,11 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
 
     private int[] result;
 
+    //排名
+    private int mRanking;
+
+    private int mRecord;
+
     @SuppressLint("HandlerLeak")
     // (2) 使用handler处理接收到的消息
     private Handler mHandler = new Handler() {
@@ -78,7 +91,8 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
                 } else {
                     //时间到，执行带着数据进行跳转
                     timer.cancel();
-                    toReport();
+                    saveRecord();
+                    getRanking();
                 }
             }
         }
@@ -122,7 +136,7 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
                     result = randomCommon(0, mTableLength, 10);
                     getQuestion();
                 } else {
-                    Toast.makeText(CompetitionTest.this, "1111查询ObjectId失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CompetitionTest.this, "查询ObjectId失败" + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -151,15 +165,59 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
         return result;
     }
 
-    //执行带着数据进行跳转操作
-    private void toReport() {
-        Intent intent = new Intent(CompetitionTest.this, ReportCard.class);
-        intent.putExtra("right", mRight);
-        intent.putExtra("wrong", mWrong);
-        intent.putExtra("notResponse", mNotResponse);
-        startActivity(intent);
-        timer.cancel();
-        finish();
+    private void getRanking() {
+        //对record进行查询，所有大于它的
+        BmobQuery<CompetitionRecord> competitionRecordBmobQuery = new BmobQuery<>();
+        //可能没有执行此处内容
+        competitionRecordBmobQuery.addWhereGreaterThan("record", mCount*2 + mRight*10);
+
+        competitionRecordBmobQuery.count(CompetitionRecord.class, new CountListener() {
+            @Override
+            public void done(Integer count, BmobException e) {
+                if(e==null){
+                    //前面有count个比自己大的成绩，加一以后就是自己的排名
+                    mRanking = count + 1;
+                    Intent intent = new Intent(CompetitionTest.this, CompetitionReportCard.class);
+                    intent.putExtra("right", mRight);
+                    intent.putExtra("wrong", mWrong);
+                    intent.putExtra("record", mRecord);
+                    intent.putExtra("ranking", mRanking);
+                    startActivity(intent);
+                    timer.cancel();
+                    finish();
+                }else{
+                    Toast.makeText(CompetitionTest.this, "查询数量失败！", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void saveRecord() {
+        /*
+         * 存数据到CompetitionRecord表中，username，usedTime，rightNumber，record
+         * */
+        //查询mGroupNumber
+        BmobUser bmobUser = BmobUser.getCurrentUser(BmobUser.class);
+        String username = bmobUser.getUsername();
+        //用时的获取  总时间减去剩余时间
+        int usedTime = 100 - mCount;
+        //正确量mRight
+        //成绩
+        mRecord = mCount*2 + mRight*10 ;
+
+        CompetitionRecord competitionRecord = new CompetitionRecord();
+        competitionRecord.setUsername(username);
+        competitionRecord.setUsedTime(usedTime);
+        competitionRecord.setRightNumber(mRight);
+        competitionRecord.setRecord(mRecord);
+        competitionRecord.save(new SaveListener<String>() {
+            @Override
+            public void done(String objectId, BmobException e) {
+                if (e != null) {
+                    Toast.makeText(CompetitionTest.this, "存储成绩失败！", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     //加载问题
@@ -251,8 +309,10 @@ public class CompetitionTest extends AppCompatActivity implements View.OnClickLi
                     if (mCurrentIndex == (10 - 1)) {
                         //在到达最后一题还按下一题就会提示这个
                         Toast.makeText(CompetitionTest.this, "当前内容为最后一题！", Toast.LENGTH_SHORT).show();
-                        //执行带着数据进行跳转
-                        toReport();
+                        //保存成绩
+                        saveRecord();
+                        //获取排名,执行带着数据进行跳转
+                        getRanking();
                     } else {
                         //将答案栏隐藏,并清除选项框的选中状态
                         checkBoxA.setChecked(false);

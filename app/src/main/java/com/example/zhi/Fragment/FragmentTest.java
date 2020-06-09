@@ -15,10 +15,6 @@ import androidx.fragment.app.Fragment;
 import com.example.zhi.Bean.User;
 import com.example.zhi.Bean.UserState;
 import com.example.zhi.R;
-import com.example.zhi.forChapter.FirstChapter;
-import com.example.zhi.forChapter.FourthChapter;
-import com.example.zhi.forChapter.SecondChapter;
-import com.example.zhi.forChapter.ThirdChapter;
 import com.example.zhi.groupTest.ExamRecord;
 import com.example.zhi.groupTest.JoinExam;
 import com.example.zhi.groupTest.JoinGroup;
@@ -26,7 +22,6 @@ import com.example.zhi.groupTest.ManageGroup;
 import com.example.zhi.groupTest.ReleaseExam;
 import com.example.zhi.test.ChoiceTest;
 import com.example.zhi.test.CompetitionTest;
-import com.example.zhi.test.GroupTest;
 import com.example.zhi.test.JudgeTest;
 
 import java.util.List;

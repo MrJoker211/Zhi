@@ -78,10 +78,13 @@
         <activity android:name=".test.CompetitionTest">
 
         </activity>
-        <activity android:name=".test.ChoiceTest">
+        <activity android:name=".test.ShowCompetitionRecord">
 
         </activity>
-        <activity android:name=".test.GroupTest">
+        <activity android:name=".test.CompetitionReportCard">
+
+        </activity>
+        <activity android:name=".test.ChoiceTest">
 
         </activity>
         <activity android:name=".test.JudgeTest">

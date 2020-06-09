@@ -1,6 +1,5 @@
 package com.example.zhi.test;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,19 +9,20 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.zhi.Fragment.FragmentTest;
 import com.example.zhi.R;
 
-public class ReportCard extends AppCompatActivity implements View.OnClickListener {
+public class CompetitionReportCard extends AppCompatActivity implements View.OnClickListener {
 
     private int right;
     private int wrong;
-    private int notResponse;
+    private int record;
     private int rightPercent;
+    private int ranking;
 
     private TextView rightReport;
     private TextView wrongReport;
-    private TextView notDoneReport;
+    private TextView recordReport;
+    private TextView rankingReport;
     private TextView percent;
 
     private TextView judge1;
@@ -31,20 +31,22 @@ public class ReportCard extends AppCompatActivity implements View.OnClickListene
     private TextView judge4;
 
     private Button backToHome;
+    private Button showRecordList;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.report_card);
+        setContentView(R.layout.competition_report_card);
 
         //接收值
         Intent intent = getIntent();
         right = intent.getIntExtra("right",10);
         wrong = intent.getIntExtra("wrong",10);
-        notResponse = intent.getIntExtra("notResponse",10);
+        record = intent.getIntExtra("record",10);
         rightPercent = right*10;
 
+        ranking = intent.getIntExtra("ranking",10);
         initView();
 
         setClick();
@@ -57,7 +59,10 @@ public class ReportCard extends AppCompatActivity implements View.OnClickListene
         //渲染界面
         rightReport.setText(String.valueOf(right));
         wrongReport.setText(String.valueOf(wrong));
-        notDoneReport.setText(String.valueOf(notResponse));
+        recordReport.setText(String.valueOf(record));
+
+        rankingReport.setText(String.valueOf(ranking));
+
         percent.setText(String.valueOf(rightPercent));
         if(rightPercent<60){
             //小于六十的正确率
@@ -77,7 +82,8 @@ public class ReportCard extends AppCompatActivity implements View.OnClickListene
     private void initView() {
         rightReport = findViewById(R.id.right_report);
         wrongReport = findViewById(R.id.wrong_report);
-        notDoneReport = findViewById(R.id.not_done_report);
+        recordReport = findViewById(R.id.record);
+        rankingReport = findViewById(R.id.ranking);
         percent = findViewById(R.id.percent_report);
 
         judge1 = findViewById(R.id.judge1);
@@ -99,6 +105,9 @@ public class ReportCard extends AppCompatActivity implements View.OnClickListene
             case R.id.back_to_home:
                 //点击以后销毁当前的活动，返回到主界面
                 finish();
+                break;
+            default:
+                break;
         }
     }
 }

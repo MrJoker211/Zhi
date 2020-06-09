@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="90dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="bottom"
+        android:textSize="18sp"
+        android:layout_height="30dp"/>
+    <TextView
+        android:id="@+id/usedTime"
+        android:layout_width="90dp"
+        android:layout_gravity="bottom"
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="30dp"/>
+    <TextView
+        android:id="@+id/rightNumber"
+        android:layout_width="90dp"
+        android:layout_gravity="bottom"
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="30dp"/>
+    <TextView
+        android:id="@+id/record"
+        android:layout_width="90dp"
+        android:layout_gravity="bottom"
+        android:textSize="18sp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="30dp"/>
+</LinearLayout>
